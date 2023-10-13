@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>User6::LIST</title>
+	</head>
+	<style>
+		th {background-color: rgb(239, 239, 239);}
+		th, td {padding: 5px;}
+	</style>
+	<body style="text-align: center;">
+		<div style="display: inline-block; width: auto; height: auto; text-align: center;">
+			<h3>User6::목록</h3>
+			<table border="1">
+				<tr>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>생일</th>
+					<th>성별</th>
+					<th>나이</th>
+					<th>주소</th>
+					<th>휴대폰</th>
+					<th>관리</th>
+				</tr>
+				
+				<tr th:each="user:${users}">
+					<td>[[${user.uid}]]</td>
+					<td>[[${user.name}]]</td>
+					<td>[[${user.birth}]]</td>
+					<td>[[${user.gender eq 'M'?'남':'여'}]]</td>
+					<td>[[${user.age}]]</td>
+					<td>[[${user.addr}]]</td>
+					<td>[[${user.hp}]]</td>
+					<td>
+						<a th:href="@{/user6/modify(uid=${user.uid})}">수정</a>
+						<a th:href="@{/user6/delete(uid=${user.uid})}">삭제</a>
+					</td>
+				</tr>
+			</table>
+			<a th:href="@{/user6/register}" 
+			style="float: right; margin-top: 2px;">등록하기</a>
+		</div>
+	</body>
+</html>

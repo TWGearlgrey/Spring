@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>User6::REGISTER</title>
+	</head>
+	<body style="text-align: center;">
+		<div style="display: inline-block; width: auto; height: auto; text-align: center;">
+			<h3>User6::등록</h3>
+			<form action="/Ch07/user6/register" method="post">
+				<table border="1">
+					<tr>
+						<th>아이디</th>
+						<td><input type="text" name="uid"/></td>
+					</tr>
+					<tr>
+						<th>이름</th>
+						<td><input type="text" name="name"/></td>
+					</tr>
+					<tr>
+						<th>생일</th>
+						<td><input type="date" name="birth" style="width: 95%;"/></td>
+					</tr>
+					<tr>
+						<th>성별</th>
+						<td>
+							<input type="radio" name="gender" value="M"/>남
+							<input type="radio" name="gender" value="F"/>여
+						</td>
+					</tr>
+					<tr>
+						<th>나이</th>
+						<td><input type="number" name="age"/></td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td><input type="text" name="addr"/></td>
+					</tr>
+					<tr>
+						<th>휴대폰</th>
+						<td><input type="text" name="hp"/></td>
+					</tr>
+				</table>
+				<div style="float: right; margin-top: 2px;">
+					<input type="submit" value="전송하기">
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

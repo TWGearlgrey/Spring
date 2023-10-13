@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+	<head>
+		<meta charset="UTF-8">
+		<title>login:success</title>
+	</head>
+	<style>
+		p { font-weight: bold;}
+		p > span { font-weight: normal;}
+		p { line-height: 26px;}
+	</style>
+	<body style="width: 251px; margin:100px auto; border: 1px solid grey; box-sizing: border-box;">
+		<h3>로그인 성공</h3>
+		
+		<p sec:authorize="isAuthenticated()">
+			아이디 : <span>[[${#authentication.principal.uid}]]</span> <br> 
+			이　름 : <span>[[${#authentication.principal.name}]]</span> <br> 
+			나　이 : <span sec:authentication="principal.age"></span> <br> 
+			휴대폰 : <span sec:authentication="principal.hp"></span> <br> 
+			권　한 : <span sec:authentication="principal.role"></span> <br> 
+			가입일 : <span sec:authentication="principal.regDate"></span> <br> 
+			<a th:href="@{/user/logout}">로그아웃</a>
+		</p>
+		<a th:href="@{/}">메인으로</a>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="/index.html">
+    <div class="sboard-list" layout:fragment="content">
+        <div class="panel">
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-1">번호</th>
+                            <th class="col-lg-6">제목</th>
+                            <th class="col-lg-2">글쓴이</th>
+                            <th class="col-lg-1">조회수</th>
+                            <th class="col-lg-2">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="list:${pageResponseDTO.dtoList}">
+                                <td>[[${list.no}]]</td>
+                                <td>
+                                    <a th:href="@{/article/view(cate=free, pg=${num}, no=${list.no})}" style="color: black;">
+                                        [[${list.title}]]
+                                    </a>
+                                </td>
+                                <td>[[${list.writer}]]</td>
+                                <td>[[${list.hit}]]</td>
+                                <td>[[${list.rdate}]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <div class="text-center">
+            <ul class="pagination">
+                <!-- <, >버튼에 class 'disabled' 추가시 마우스 hover시 X표. -->
+                <li th:if="${pageResponseDTO.prev}" class="paginate_button previous "
+                    aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                    <a th:href="@{/article/list(cate=free, pg=${pageResponseDTO.start-1})}"> < </a>
+                </li>
+
+                    <li th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}"
+                        class="paginate_button"
+                        aria-controls="dataTables-example"
+                        tabindex="0">
+                        <a th:href="@{/article/list(cate=free, pg=${num})}">[[${num}]]</a>
+                    </li>
+
+                <li th:if="${pageResponseDTO.next}" class="paginate_button next"
+                    aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
+                    <a th:href="@{/article/list(cate=free, pg=${pageResponseDTO.end+1})}"> > </a>
+                </li>
+            </ul>
+        </div>
+        <div class="text-right">
+            <a th:href="@{/article/write(cate=${pageResponseDTO.cate})}" class="btn btn-primary">글쓰기</a>
+        </div>
+    </div>
+</html>

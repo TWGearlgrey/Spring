@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Ch10::index</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script th:src="@{/js/user1.js}"></script>
+		<script th:src="@{/js/user2.js}"></script>
+		<script th:src="@{/js/user3.js}"></script>
+		<script th:src="@{/js/user4.js}"></script>
+		<script th:src="@{/js/user5.js}"></script>
+		<script th:src="@{/js/user6.js}"></script>
+	</head>
+	<style>
+		#wrapper {width: 430px; margin: 0 auto; text-align: center;}
+		table * {padding: 5px;}
+	</style>
+	<body>
+		<div id="wrapper">
+			<h3>Ch10. Spring REST API</h3>
+			<!-- 
+				- 목록 GET    : /user1
+				- 조회 GET    : /user1/{id}
+				- 등록 POST   : /user1
+				- 수정 PUT    : /user1
+				- 삭제 DELETE : /user1/{id}
+				리소스 자원을 통일하여 사용할 것!
+				주소파라미터가 더 필요한 경우 /user1/{id}/{name} 과 같이 추가하여 사용.
+			-->
+			
+			<table border="1">
+				<tr>
+					<th>user No.</th>
+					<th>REST API</th>
+					<th>CRUD 실습</th>
+				</tr>
+				<tr>
+					<td>User1</td>
+					<td>
+						<button id="btnUser1s"       >목록</button>
+						<button id="btnUser1"        >조회</button>
+						<button id="btnUser1Register">등록</button>
+						<button id="btnUser1Modify"  >수정</button>
+						<button id="btnUser1Delete"  >삭제</button>
+					</td>
+					<td>
+						<a th:href="@{/user1/list}">목록</a>
+						<a th:href="@{/user1/register}">등록</a>
+					</td>
+				</tr>
+				<tr>
+					<td>User2</td>
+					<td>
+						<button id="btnUser2s"       >목록</button>
+						<button id="btnUser2"        >조회</button>
+						<button id="btnUser2Register">등록</button>
+						<button id="btnUser2Modify"  >수정</button>
+						<button id="btnUser2Delete"  >삭제</button>
+					</td>
+					<td>
+						<a th:href="@{/user2/list}">목록</a>
+						<a th:href="@{/user2/register}">등록</a>
+					</td>
+				</tr>
+				<tr>
+					<td>User3</td>
+					<td>
+						<button id="btnUser3s"       >목록</button>
+						<button id="btnUser3"        >조회</button>
+						<button id="btnUser3Register">등록</button>
+						<button id="btnUser3Modify"  >수정</button>
+						<button id="btnUser3Delete"  >삭제</button>
+					</td>
+					<td>
+						<a th:href="@{/user3/list}">목록</a>
+						<a th:href="@{/user3/register}">등록</a>
+					</td>
+				</tr>
+				<tr>
+					<td>User4</td>
+					<td>
+						<button id="btnUser4s"       >목록</button>
+						<button id="btnUser4"        >조회</button>
+						<button id="btnUser4Register">등록</button>
+						<button id="btnUser4Modify"  >수정</button>
+						<button id="btnUser4Delete"  >삭제</button>
+					</td>
+					<td>
+						<a th:href="@{/user4/list}">목록</a>
+						<a th:href="@{/user4/register}">등록</a>
+					</td>
+				</tr>
+				<tr>
+					<td>User5</td>
+					<td>
+						<button id="btnUser5s"       >목록</button>
+						<button id="btnUser5"        >조회</button>
+						<button id="btnUser5Register">등록</button>
+						<button id="btnUser5Modify"  >수정</button>
+						<button id="btnUser5Delete"  >삭제</button>
+					</td>
+					<td>
+						<a th:href="@{/user5/list}">목록</a>
+						<a th:href="@{/user5/register}">등록</a>
+					</td>
+				</tr>
+				<tr>
+					<td>User6</td>
+					<td>
+						<button id="btnUser6s"       >목록</button>
+						<button id="btnUser6"        >조회</button>
+						<button id="btnUser6Register">등록</button>
+						<button id="btnUser6Modify"  >수정</button>
+						<button id="btnUser6Delete"  >삭제</button>
+					</td>
+					<td>
+						<a th:href="@{/user6/list}">목록</a>
+						<a th:href="@{/user6/register}">등록</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
