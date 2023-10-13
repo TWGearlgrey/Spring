@@ -43,7 +43,4 @@
 ### Ch11. Spring JWT & OAuth2
 - 토큰기반인증 기술에 대한 이해 및 JWT 실습
 - Access·Refresh Token 및 OAuth2를 이용한 카카오 간편 로그인 실습
-# Spring
-# Spring
-# Spring
-# Spring
+
