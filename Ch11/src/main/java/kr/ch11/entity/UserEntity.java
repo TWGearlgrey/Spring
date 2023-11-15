@@ -34,4 +34,12 @@ public class UserEntity {
 	
 	@CreationTimestamp
 	private LocalDateTime regDate;
+
+	public UserDTO toDTO() {
+		return UserDTO
+				.builder()
+				.uid(uid)
+				.role(role)
+				.build();
+	}
 }

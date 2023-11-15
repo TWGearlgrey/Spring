@@ -2,7 +2,12 @@ package kr.ch11.jwt;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.SecurityException;
+import kr.ch11.entity.UserEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -21,7 +26,7 @@ import lombok.extern.log4j.Log4j2;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private final JwtProvider jwtProvider;
-	
+
 	public static final String AUTH_HEADER  = "Authorization";
 	public static final String TOKEN_PREFIX = "Bearer";
 	
@@ -30,6 +35,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		
 		log.info("JwtAuthenticationFilter...1");
+
+		String uri = request.getRequestURI();
+		int i = uri.lastIndexOf("/");
+		String path = uri.substring(i); // htt.... /Ch11/refreshToken에서 refreshToken만 가져옴.
 		
 		String header = request.getHeader(AUTH_HEADER);
 		log.info("JwtAuthenticationFilter...2 : " + header);
@@ -37,9 +46,50 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String token = getTokenFromHeader(header);
 		log.info("JwtAuthenticationFilter...3 : " + token);
 		
-		if(token != null && jwtProvider.validateToken(token)) {
+		if(token != null) {
 			log.info("JwtAuthenticationFilter...4");
-			
+			try{
+				jwtProvider.validateToken(token);
+
+				if(path.equals("/refreshToken")) {
+					Claims claims = jwtProvider.getClaims(token);
+					String uid  = (String) claims.get("uid");
+					String role = (String) claims.get("role");
+
+					UserEntity user = UserEntity.builder()
+												.uid("")
+												.role("").build();
+
+					String accessToken = jwtProvider.createToken(user, 3);
+
+					response.setStatus(HttpServletResponse.SC_CREATED);
+					response.getWriter().print(accessToken);
+					return;
+				}
+
+
+
+			} catch (SecurityException | MalformedJwtException e) {
+				log.debug("잘못된 JWT 서명 입니다.");
+				response.setStatus(401);
+				response.getWriter().print("잘못된 JWT 서명입니다.");
+				return;
+			} catch (ExpiredJwtException e) {
+				log.debug("만료된 JWT 서명 입니다.");
+				response.setStatus(402);
+				response.getWriter().print("만료된 JWT 서명입니다.");
+				return;
+			} catch (UnsupportedJwtException e) {
+				log.debug("지원되지 않는 JWT 서명 입니다.");
+				response.setStatus(403);
+				response.getWriter().print("지원되지 않는 JWT 서명입니다.");
+				return;
+			} catch (IllegalArgumentException e) {
+				log.debug("JWT 토큰이 잘 못 되었습니다.");
+				response.setStatus(404);
+				response.getWriter().print("JWT 토큰이 잘 못 되었습니다.");
+				return;
+			}
 			// Security 인증처리
 			Authentication authentication = jwtProvider.getAuthentication(token);
 			SecurityContextHolder.getContext().setAuthentication(authentication);

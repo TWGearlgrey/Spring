@@ -45,11 +45,11 @@ public class JwtProvider {
 	}
 	
 	// 토큰 생성 메서드
-	public String createToken(UserEntity user, int days) {
+	public String createToken(UserEntity user, int min) {
 		
 		// 생성일, 만료일 생성
 		Date issuedDate = new Date();
-		Date expireDate = new Date(issuedDate.getTime() + Duration.ofDays(days).toMillis());
+		Date expireDate = new Date(issuedDate.getTime() + Duration.ofMinutes(min).toMillis());
 		
 		// 클레임 생성
 		Claims claims = Jwts.claims();
@@ -98,15 +98,22 @@ public class JwtProvider {
 			
 		} catch (SecurityException | MalformedJwtException e) {
 			log.debug("잘못된 JWT 서명 입니다.");
+			throw new MalformedJwtException("MalformedJwtException", e);
+
 		} catch (ExpiredJwtException e) {
 			log.debug("만료된 JWT 서명 입니다.");
+			throw new ExpiredJwtException(null, null, "ExpiredJwtException", e);
+
 		} catch (UnsupportedJwtException e) {
 			log.debug("지원되지 않는 JWT 서명 입니다.");
+			throw new UnsupportedJwtException("UnsupportedJwtException", e);
+
 		} catch (IllegalArgumentException e) {
 			log.debug("JWT 토큰이 잘 못 되었습니다.");
+			throw new IllegalArgumentException("IllegalArgumentException", e);
+
 		}
-		
-		return false;
+		/*return false;*/
 	}
 	
 	// Claim은 token에 들어가는 정보
